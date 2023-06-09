@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Forum
 {
+    /// <summary>
+    /// Represents a forum statistic collector that gathers and provides statistics about a forum.
+    /// </summary>
     public class ForumStatistic
     {
         private Forum Forum;
@@ -14,6 +17,10 @@ namespace Forum
         private int _totalUnansweredQuestions;
         private int _totalQuestionsWithAnswers;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ForumStatistic"/> class with the specified forum.
+        /// </summary>
+        /// <param name="forum">The forum to collect statistics from.</param>
         public ForumStatistic(Forum forum)
         {
             Forum = forum;
@@ -24,13 +31,33 @@ namespace Forum
 
             Forum.QuestionAdded += Forum_QuestionAdded;
             Forum.AnswerAdded += Forum_AnswerAdded;
-        }   
+        }
 
+        /// <summary>
+        /// Gets the total number of questions in the forum.
+        /// </summary>
         public int TotalQuestions => _totalQuestions;
+
+        /// <summary>
+        /// Gets the total number of answers in the forum.
+        /// </summary>
         public int TotalAnswer => _totalAnswer;
+
+        /// <summary>
+        /// Gets the total number of unanswered questions in the forum.
+        /// </summary>
         public int TotalUnansweredQuestions => _totalUnansweredQuestions;
+
+        /// <summary>
+        /// Gets the total number of questions with at least one answer in the forum.
+        /// </summary>
         public int TotalQuestionsWithAnswer => _totalQuestionsWithAnswers;
+
+        /// <summary>
+        /// Gets the average number of answers per question in the forum.
+        /// </summary>
         public double AverageAnswersPerQuestion => _totalQuestions > 0 ? (double)TotalAnswer / TotalQuestions : 0; 
+
 
         private void Forum_AnswerAdded(object sender, AnswerEventArgs e)
         {
@@ -52,6 +79,9 @@ namespace Forum
 
         private bool HaveAnswers(string questionId) => Forum.GetAnswerByQuestion(questionId).Count > 0;
 
+        /// <summary>
+        /// Displays the collected forum statistics on the console.
+        /// </summary>
         public void DisplayStatistic()
         {
             Console.WriteLine();
